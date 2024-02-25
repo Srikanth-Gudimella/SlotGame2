@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,16 +13,31 @@ public class SlotSetHandler : MonoBehaviour
     public float TotalAnimTime;
     public bool StopAtFinalItem = false;
     public int WinItemIndex = 0;
-    void Start()
+    private void OnEnable()
     {
-        Invoke(nameof(StartSlotMachine), 1);
-        Invoke(nameof(SetFinalItem), TotalAnimTime);
-        Invoke(nameof(SlowSpeed), 3*TotalAnimTime/4);
+        UIHandler.StartAction += OnStartClick;
     }
-    void StartSlotMachine()
+    private void OnDisable()
     {
+        UIHandler.StartAction -= OnStartClick;
+    }
+    private void OnStartClick()
+    {
+        StartGame();
+    }
+   
+    public void StartGame()
+    {
+        speed = 10;
         IsStartMachine = true;
+        //Invoke(nameof(StartSlotMachine), 1);
+        Invoke(nameof(SetFinalItem), TotalAnimTime);
+        Invoke(nameof(SlowSpeed), 3 * TotalAnimTime / 4);
     }
+    //void StartSlotMachine()
+    //{
+    //    IsStartMachine = true;
+    //}
     void SlowSpeed()
     {
         speed =speed*0.5f;
@@ -68,6 +84,7 @@ public class SlotSetHandler : MonoBehaviour
         if (StopAtFinalItem && ItemHandlersList[WinItemIndex].transform.localPosition.y == 0)
         {
             IsStartMachine = false;
+            UIHandler.Instance.StartBtn.interactable = true;
         }
         return;
         ItemHandlersList[0].transform.localPosition -= new Vector3(0, speed, 0);
