@@ -13,6 +13,7 @@ public class SlotSetHandler : MonoBehaviour
     public float TotalAnimTime;
     public bool StopAtFinalItem = false;
     public int WinItemIndex = 0;
+    bool IsSetFinalSpeed = false;
     private void OnEnable()
     {
         UIHandler.StartAction += OnStartClick;
@@ -30,6 +31,8 @@ public class SlotSetHandler : MonoBehaviour
     {
         speed = 10;
         IsStartMachine = true;
+        StopAtFinalItem = false;
+        IsSetFinalSpeed = false;
         //Invoke(nameof(StartSlotMachine), 1);
         Invoke(nameof(SetFinalItem), TotalAnimTime);
         Invoke(nameof(SlowSpeed), 3 * TotalAnimTime / 4);
@@ -59,6 +62,11 @@ public class SlotSetHandler : MonoBehaviour
         //Debug.Log("-----localpositiony 1111=" + ItemHandlersList[1].transform.localPosition.y);
         //Debug.Log("-----localpositiony 2222=" + ItemHandlersList[2].transform.localPosition.y);
         //Debug.Log("-----localpositiony 3333=" + ItemHandlersList[3].transform.localPosition.y);
+        //if(StopAtFinalItem && !IsSetFinalSpeed && ItemHandlersList[WinItemIndex].transform.localPosition.y>100 && ItemHandlersList[WinItemIndex].transform.localPosition.y<400)
+        //{
+        //    IsSetFinalSpeed = true;
+        //    speed = speed * 0.5f;
+        //}
 
         for (int i=0;i < ItemHandlersList.Length;i++)
         {
