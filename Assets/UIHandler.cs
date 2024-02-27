@@ -15,7 +15,7 @@ public class UIHandler : MonoBehaviour
     }
     public void StartClick()
     {
-        StartBtn.interactable = false;
+        //StartBtn.interactable = false;
         StartAction?.Invoke();
     }
 }
