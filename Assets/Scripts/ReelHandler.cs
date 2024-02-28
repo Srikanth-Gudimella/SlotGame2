@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ReelHandler : MonoBehaviour
 {
+    public int ReelIndex=0;
     public int TotalReelItems;
     public float speed = 1;
     public GameObject LastTopObj;
@@ -37,13 +38,18 @@ public class ReelHandler : MonoBehaviour
     void SetStartingFixedIndexsRandom()//This is temporary code , first shuffling ReelimgIndexList then adding first 3 in StartingFixedIndexs
     {
         StartingFixedIndexs.Clear();
-        while (StartingFixedIndexs.Count < 3)
+        //while (StartingFixedIndexs.Count < 3)
+        //{
+        //    int randomNumber = UnityEngine.Random.Range(0, 10);
+        //    if(!StartingFixedIndexs.Contains(randomNumber))
+        //    {
+        //        StartingFixedIndexs.Add(randomNumber);
+        //    }
+        //}
+
+        for(int i=0;i< GameManager.Instance._ReelsListFristIndexs[ReelIndex].ReelFirstIndexs.Length;i++)
         {
-            int randomNumber = UnityEngine.Random.Range(0, 10);
-            if(!StartingFixedIndexs.Contains(randomNumber))
-            {
-                StartingFixedIndexs.Add(randomNumber);
-            }
+            StartingFixedIndexs.Add(GameManager.Instance._ReelsListFristIndexs[ReelIndex].ReelFirstIndexs[i]);
         }
     }
     void ShuffleReelImgIndexList()

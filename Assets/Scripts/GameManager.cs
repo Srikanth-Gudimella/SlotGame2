@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public LineHandler[] LinesList;
     public List<LineHandler> WinningLinesList = new List<LineHandler>();
     public int ReelsFinishedCount;
+    public ReelsList_FristIndexs[] _ReelsListFristIndexs;
+    //public 
     private void Awake()
     {
         Instance = this;

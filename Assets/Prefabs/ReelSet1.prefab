@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1795381570338418044}
   - component: {fileID: 1795381570338418047}
   m_Layer: 5
-  m_Name: Set1
+  m_Name: ReelSet1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
