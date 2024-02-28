@@ -78,7 +78,7 @@ public class ReelHandler : MonoBehaviour
     {
         for(int i=0;i< ReelItemsList.Length;i++)
         {
-            ReelItemsList[i].ItemImgIndex = ReelImgIndexList[i];
+            ReelItemsList[i].ItemIndex = ReelImgIndexList[i];
             ReelItemsList[i].SetItemImg();
         }
     }
@@ -159,7 +159,8 @@ public class ReelHandler : MonoBehaviour
         if (StopAtFinalItem && ReelItemsList[WinItemIndex].transform.localPosition.y == 200)
         {
             IsStartMachine = false;
-            UIHandler.Instance.StartBtn.interactable = true;
+            GameManager.Instance.ReelFinishedAction();
+            //UIHandler.Instance.StartBtn.interactable = true;
         }
         //return;
         //ItemHandlersList[0].transform.localPosition -= new Vector3(0, speed, 0);

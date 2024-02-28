@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class ReelItem : MonoBehaviour
 {
-    public int ItemImgIndex;
+    public int ItemIndex;
     public Image ItemImg;
     public void SetItemImg()
     {
-        ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemImgIndex];
+        ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemIndex];
     }
 }
