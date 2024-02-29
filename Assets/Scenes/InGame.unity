@@ -519,6 +519,7 @@ Transform:
   m_Children:
   - {fileID: 2145315848}
   - {fileID: 1542017052}
+  - {fileID: 1852628151}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -783,7 +784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &729561227
 Transform:
   m_ObjectHideFlags: 0
@@ -1039,7 +1040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1078975026
 Transform:
   m_ObjectHideFlags: 0
@@ -1700,6 +1701,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3e639683c3d584fb836ac04092912d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reelInfos:
+  - ReelFirstIndexs: 050000000200000007000000
+  - ReelFirstIndexs: 050000000300000004000000
+  - ReelFirstIndexs: 050000000700000001000000
+  - ReelFirstIndexs: 080000000200000009000000
+  - ReelFirstIndexs: 030000000700000005000000
+  lineInfos:
+  - ReelItemsList:
+    - {fileID: 1795381571596318113}
+    - {fileID: 1848523910}
+    - {fileID: 1810021531}
+    - {fileID: 1242542164}
+    - {fileID: 1598308981}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318115}
+    - {fileID: 1848523912}
+    - {fileID: 1810021533}
+    - {fileID: 1242542166}
+    - {fileID: 1598308983}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318114}
+    - {fileID: 1848523911}
+    - {fileID: 1810021532}
+    - {fileID: 1242542165}
+    - {fileID: 1598308982}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318115}
+    - {fileID: 1848523910}
+    - {fileID: 1810021532}
+    - {fileID: 1242542164}
+    - {fileID: 1598308983}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318114}
+    - {fileID: 1848523910}
+    - {fileID: 1810021533}
+    - {fileID: 1242542164}
+    - {fileID: 1598308982}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318113}
+    - {fileID: 1848523911}
+    - {fileID: 1810021532}
+    - {fileID: 1242542165}
+    - {fileID: 1598308981}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318113}
+    - {fileID: 1848523912}
+    - {fileID: 1810021533}
+    - {fileID: 1242542166}
+    - {fileID: 1598308981}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318114}
+    - {fileID: 1848523911}
+    - {fileID: 1810021531}
+    - {fileID: 1242542166}
+    - {fileID: 1598308983}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318115}
+    - {fileID: 1848523912}
+    - {fileID: 1810021531}
+    - {fileID: 1242542165}
+    - {fileID: 1598308982}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  - ReelItemsList:
+    - {fileID: 1795381571596318114}
+    - {fileID: 1848523910}
+    - {fileID: 1810021531}
+    - {fileID: 1242542164}
+    - {fileID: 1598308983}
+    FirstReelItemIndex: 0
+    MatchCount: 0
+  WinningLinesList: []
   ReelItemImgs:
   - {fileID: 21300000, guid: a9237acf70fcbff49bf1e230d8a903b0, type: 3}
   - {fileID: 21300000, guid: 1149ebd6a5c7bd4449806bb0620a12e6, type: 3}
@@ -1711,25 +1800,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7e4b115d4780ab246a124bade8d7bde0, type: 3}
   - {fileID: 21300000, guid: 45390c5a0209a8645a1e64db7a907ecd, type: 3}
   - {fileID: 21300000, guid: c93547cbf77a48441915992169ccd6cf, type: 3}
-  LinesList:
-  - {fileID: 1735514958}
-  - {fileID: 1340960332}
-  - {fileID: 403480226}
-  - {fileID: 176367596}
-  - {fileID: 1496984611}
-  - {fileID: 1200874103}
-  - {fileID: 670755837}
-  - {fileID: 673425233}
-  - {fileID: 646126897}
-  - {fileID: 1874434133}
-  WinningLinesList: []
   ReelsFinishedCount: 0
-  _ReelsListFristIndexs:
-  - {fileID: 463917748}
-  - {fileID: 383612293}
-  - {fileID: 1244396670}
-  - {fileID: 362407395}
-  - {fileID: 814142516}
 --- !u!114 &1542017054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,6 +2291,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fb690a1cf464c746ad830c091ccb1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1852628150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852628151}
+  - component: {fileID: 1852628152}
+  m_Layer: 0
+  m_Name: CoroutineUtils
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1852628151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852628150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 641227711}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1852628152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852628150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8ce49df63f079478ac93274e962913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1866919697

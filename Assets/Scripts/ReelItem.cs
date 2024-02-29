@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReelItem : MonoBehaviour
+namespace SlotGame
 {
-    public int ItemIndex;
-    public Image ItemImg;
-    public void SetItemImg()
+    public class ReelItem : MonoBehaviour
     {
-        ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemIndex];
+        public int ItemIndex;
+        public Image ItemImg;
+        public void SetItemImg()
+        {
+            ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemIndex];
+        }
     }
 }
