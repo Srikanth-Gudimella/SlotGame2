@@ -26,6 +26,8 @@ namespace SlotGame
                     if (lineInfo.FirstReelItemIndex == lineInfo.ReelItemsList[i].ItemIndex)
                     {
                         lineInfo.MatchCount++;
+                        lineInfo.ReelItemsList[0].ActivateEffect(true);
+                        lineInfo.ReelItemsList[i].ActivateEffect(true);
                     }
                     else
                     {
@@ -34,8 +36,7 @@ namespace SlotGame
                 }
                 if (lineInfo.MatchCount >= 3)
                 {
-                    WinningLinesList
-                        .Add(lineInfo);
+                    WinningLinesList.Add(lineInfo);
                 }
             }
             Debug.Log("--------- Find Winnings total winninglinescount=" + WinningLinesList.Count);
@@ -54,6 +55,11 @@ namespace SlotGame
         {
             ReelsFinishedCount = 0;
             UIHandler.Instance.StartBtn.interactable = true;
+            foreach (LineInfo lineInfo in lineInfos)
+            {
+                for (int i = 0; i < lineInfo.ReelItemsList.Length; i++)
+                    lineInfo.ReelItemsList[i].ActivateEffect(false);
+            }
         }
     }
 }
