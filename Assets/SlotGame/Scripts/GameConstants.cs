@@ -26,6 +26,7 @@ namespace SlotGame
         public List<LineInfo> lineInfos;
 
         public List<LineInfo> WinningLinesList = new List<LineInfo>();
+
         public List<ReelHandler> reelHandlersList;
 
     }

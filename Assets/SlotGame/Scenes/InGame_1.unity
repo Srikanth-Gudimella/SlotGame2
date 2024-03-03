@@ -1165,6 +1165,7 @@ MonoBehaviour:
   useFixedStartIndexs: 0
   WinLineIndex: 0
   WinItemIndex: 0
+  WinItemsCount: 0
 --- !u!114 &1542017054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2063,6 +2064,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2439021878125566440, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408725539165190255, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

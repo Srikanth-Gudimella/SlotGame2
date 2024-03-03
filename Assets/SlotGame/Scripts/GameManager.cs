@@ -12,7 +12,7 @@ namespace SlotGame
         public bool IsActivateWinCondition;
 
         public bool useFixedStartIndexs;
-        public int WinLineIndex,WinItemIndex;
+        public int WinLineIndex,WinItemIndex,WinItemsCount;
 
         private void Awake()
         {
@@ -36,8 +36,18 @@ namespace SlotGame
             {
                 WinLineIndex = Random.Range(0, lineInfos.Count);
                 WinItemIndex = Random.Range(0, 10);
+                int RandWinItemsCount = Random.Range(0, 10);
+                Debug.LogError("--- RandWinItemsCount=" + RandWinItemsCount);
+                if (RandWinItemsCount < 6)
+                    WinItemsCount = 3;
+                else if (RandWinItemsCount < 9)
+                    WinItemsCount = 4;
+                else
+                    WinItemsCount = 5;
+
                 Debug.LogError("--- WinLineIndex=" + WinLineIndex);
                 Debug.LogError("--- WinItemIndex=" + WinItemIndex);
+                Debug.LogError("--- WinItemsCount=" + WinItemsCount);
             }
         }
             public void FindWinningLines()
@@ -74,9 +84,12 @@ namespace SlotGame
         {
             for(int i=0;i<WinningLinesList.Count;i++)
             {
-                WinningLinesList[i].ReelItemsList[0].ActivateEffect(true);
-                WinningLinesList[i].ReelItemsList[1].ActivateEffect(true);
-                WinningLinesList[i].ReelItemsList[2].ActivateEffect(true);
+                for (int j = 0; j < WinningLinesList[i].MatchCount; j++)
+                {
+                    WinningLinesList[i].ReelItemsList[j].ActivateEffect(true);
+                }
+                //WinningLinesList[i].ReelItemsList[1].ActivateEffect(true);
+                //WinningLinesList[i].ReelItemsList[2].ActivateEffect(true);
                 //lineInfos[lineInfos.IndexOf(WinningLinesList[i])].ReelItemsList[0].ActivateEffect(true);
                 //lineInfos[lineInfos.IndexOf(WinningLinesList[i])].ReelItemsList[1].ActivateEffect(true);
                 //lineInfos[lineInfos.IndexOf(WinningLinesList[i])].ReelItemsList[2].ActivateEffect(true);

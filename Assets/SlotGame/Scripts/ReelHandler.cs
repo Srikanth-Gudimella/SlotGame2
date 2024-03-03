@@ -160,13 +160,16 @@ namespace SlotGame
                     ReelImgIndexList.Add(randomNumber);
                 }
             }
-            //swapping of required item 
-            int IndexOfRequiredWinItemIndex = ReelImgIndexList.IndexOf(GameManager.Instance.WinItemIndex);
-            int IndexOfLineOfThisReel = ReelItemsList.IndexOf(GameManager.Instance.lineInfos[GameManager.Instance.WinLineIndex].ReelItemsList[ReelIndex]);
-            int valueOfReqWinItemIndex = ReelImgIndexList[IndexOfRequiredWinItemIndex];
-            int valueOfLineOfReelItem = ReelImgIndexList[IndexOfLineOfThisReel];
-            ReelImgIndexList[IndexOfRequiredWinItemIndex] = valueOfLineOfReelItem;
-            ReelImgIndexList[IndexOfLineOfThisReel] = valueOfReqWinItemIndex;
+            if (ReelIndex < GameManager.Instance.WinItemsCount)
+            {
+                //swapping of required item 
+                int IndexOfRequiredWinItemIndex = ReelImgIndexList.IndexOf(GameManager.Instance.WinItemIndex);
+                int IndexOfLineOfThisReel = ReelItemsList.IndexOf(GameManager.Instance.lineInfos[GameManager.Instance.WinLineIndex].ReelItemsList[ReelIndex]);
+                int valueOfReqWinItemIndex = ReelImgIndexList[IndexOfRequiredWinItemIndex];
+                int valueOfLineOfReelItem = ReelImgIndexList[IndexOfLineOfThisReel];
+                ReelImgIndexList[IndexOfRequiredWinItemIndex] = valueOfLineOfReelItem;
+                ReelImgIndexList[IndexOfLineOfThisReel] = valueOfReqWinItemIndex;
+            }
 
           
         }
