@@ -13,6 +13,7 @@ namespace SlotGame
 
         public bool useFixedStartIndexs;
         public int WinLineIndex,WinItemIndex,WinItemsCount;
+        private float[] probabilities = { 0.8f, 0.2f, 0.1f }; // You can adjust these values as needed
 
         private void Awake()
         {
@@ -36,15 +37,45 @@ namespace SlotGame
             {
                 WinLineIndex = Random.Range(0, lineInfos.Count);
                 WinItemIndex = Random.Range(0, 10);
-                int RandWinItemsCount = Random.Range(0, 10);
-                Debug.LogError("--- RandWinItemsCount=" + RandWinItemsCount);
-                if (RandWinItemsCount < 6)
-                    WinItemsCount = 3;
-                else if (RandWinItemsCount < 9)
-                    WinItemsCount = 4;
-                else
-                    WinItemsCount = 5;
+                //int RandWinItemsCount = Random.Range(0, 10);
+                //Debug.LogError("--- RandWinItemsCount=" + RandWinItemsCount);
+                //if (RandWinItemsCount < 6)
+                //    WinItemsCount = 3;
+                //else if (RandWinItemsCount < 9)
+                //    WinItemsCount = 4;
+                //else
+                //    WinItemsCount = 5;
 
+
+                float randomValue = UnityEngine.Random.value;
+
+                // Check which probability range the random number falls into
+                if (randomValue <= probabilities[0])
+                {
+                    // 70% probability logic
+                    Debug.Log("70% probability logic executed");
+                    WinItemsCount = 3;
+                    // Implement your logic here for 70% probability
+                }
+                else if (randomValue <= probabilities[0] + probabilities[1])
+                {
+                    // 30% probability logic
+                    Debug.Log("30% probability logic executed");
+                    WinItemsCount = 4;
+                    // Implement your logic here for 30% probability
+                }
+                else if (randomValue <= probabilities[0] + probabilities[1] + probabilities[2])
+                {
+                    // 10% probability logic
+                    Debug.Log("10% probability logic executed");
+                    WinItemsCount = 5;
+                    // Implement your logic here for 10% probability
+                }
+                else
+                {
+                    // This should never happen if probabilities are properly set
+                    Debug.LogError("Error: Probability sum exceeds 1");
+                }
                 Debug.LogError("--- WinLineIndex=" + WinLineIndex);
                 Debug.LogError("--- WinItemIndex=" + WinItemIndex);
                 Debug.LogError("--- WinItemsCount=" + WinItemsCount);
