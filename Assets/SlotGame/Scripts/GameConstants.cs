@@ -5,12 +5,16 @@ namespace SlotGame
 {
     public class GameConstants:MonoBehaviour
     {
+        public float TotalAnimTime;
+        public int TotalReelItems;
+
         [System.Serializable]
         public class ReelInfo
         {
             public int[] ReelFirstIndexs;
         }
         public List<ReelInfo> reelInfos;
+        
 
         [System.Serializable]
         public class LineInfo
@@ -22,6 +26,7 @@ namespace SlotGame
         public List<LineInfo> lineInfos;
 
         public List<LineInfo> WinningLinesList = new List<LineInfo>();
+        public List<ReelHandler> reelHandlersList;
 
     }
 }

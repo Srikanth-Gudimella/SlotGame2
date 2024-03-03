@@ -1,3 +1,4 @@
+using Custom.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +8,10 @@ namespace SlotGame
     public class ReelHandler : MonoBehaviour
     {
         public int ReelIndex = 0;
-        public int TotalReelItems;
         public float speed = 1;
         public GameObject LastTopObj;
         public bool IsStartMachine = false;
-        public ReelItem[] ReelItemsList;
-        public float TotalAnimTime;
+        public List<ReelItem> ReelItemsList = new List<ReelItem>();
         public bool StopAtFinalItem = false;
         public int WinItemIndex = 0;//it should be 0 always, first 3 only come and stop always. these first 3 objects we will fix
         public List<int> ReelImgIndexList = new List<int>();
@@ -36,25 +35,87 @@ namespace SlotGame
             ShuffleReelImgIndexList();
             SetItemImgs();
         }
+        private void OnStartClick()
+        {
+
+            CoroutineUtils.instance.WaitUntillGivenTime(((ReelIndex+1)* 0.1f), () =>
+            {
+                //if (ReelIndex==0 && GameManager.Instance.IsActivateWinCondition)
+                //{
+                //    GameManager.Instance.WinLineIndex = UnityEngine.Random.Range(0, GameManager.Instance.lineInfos.Count);
+                //    GameManager.Instance.WinItemIndex = UnityEngine.Random.Range(0, 10);
+                //    Debug.LogError("--- WinLineIndex="+GameManager.Instance.WinLineIndex);
+                //    Debug.LogError("--- WinItemIndex=" + GameManager.Instance.WinItemIndex);
+
+                //}
+
+                if (GameManager.Instance.IsActivateWinCondition)
+                {
+                    ShuffleReelImgIndexList_WinLogic();
+                }
+                else
+                {
+                    ShuffleReelImgIndexList();
+                }
+                SetItemImgs();
+                // Need to change first 3 images after they move out of screen, becuase at this time this is in visible area,
+                // so if we change now then it will be like sudden change/jerk
+                StartGame();
+            });
+
+        }
+
+
+        public void StartGame()
+        {
+            speed = 10;
+            IsStartMachine = true;
+            StopAtFinalItem = false;
+            IsSetFinalSpeed = false;
+            IsSlowDownActivated = false;
+            //Invoke(nameof(StartSlotMachine), 1);
+            //Invoke(nameof(SetFinalItem), GameManager.Instance.TotalAnimTime);
+            //Invoke(nameof(SlowSpeed), 3 * GameManager.Instance.TotalAnimTime / 4);
+
+            CoroutineUtils.instance.WaitUntillGivenTime(GameManager.Instance.TotalAnimTime + (ReelIndex * 0.1f), () =>
+            {
+                SetFinalItem();
+            });
+            //CoroutineUtils.instance.WaitUntillGivenTime(3 * GameManager.Instance.TotalAnimTime / 4, () =>
+            //{
+            //    SlowSpeed();
+            //});
+        }
         void SetStartingFixedIndexsRandom()//This is temporary code , first shuffling ReelimgIndexList then adding first 3 in StartingFixedIndexs
         {
+            //Debug.Log("------------- Reelhandler SetStartingFixedIndexsRandom Reelindex="+ReelIndex);
             StartingFixedIndexs.Clear();
-            //while (StartingFixedIndexs.Count < 3)
-            //{
-            //    int randomNumber = UnityEngine.Random.Range(0, 10);
-            //    if(!StartingFixedIndexs.Contains(randomNumber))
-            //    {
-            //        StartingFixedIndexs.Add(randomNumber);
-            //    }
-            //}
 
-            //for(int i=0;i< GameManager.Instance._ReelsListFristIndexs[ReelIndex].ReelFirstIndexs.Length;i++)
-            //{
-            //    StartingFixedIndexs.Add(GameManager.Instance._ReelsListFristIndexs[ReelIndex].ReelFirstIndexs[i]);
-            //}
-            for (int i = 0; i < GameManager.Instance.reelInfos[ReelIndex].ReelFirstIndexs.Length; i++)
+            if (GameManager.Instance.useFixedStartIndexs)
             {
-                StartingFixedIndexs.Add(GameManager.Instance.reelInfos[ReelIndex].ReelFirstIndexs[i]);
+                for (int i = 0; i < GameManager.Instance.reelInfos[ReelIndex].ReelFirstIndexs.Length; i++)
+                {
+                    StartingFixedIndexs.Add(GameManager.Instance.reelInfos[ReelIndex].ReelFirstIndexs[i]);
+                }
+            }
+            else
+            {
+                while (StartingFixedIndexs.Count < 3)
+                {
+                    int randomNumber = UnityEngine.Random.Range(0, 10);
+                    if (GameManager.Instance.IsActivateLossCondition && ReelIndex == 1)
+                    {
+                        Debug.Log("------------- Reelhandler SetStartingFixedIndexsRandom Reelindex=" + ReelIndex + "::count=" + (GameManager.Instance.reelHandlersList[0].StartingFixedIndexs));
+                        if (!StartingFixedIndexs.Contains(randomNumber) && !GameManager.Instance.reelHandlersList[0].StartingFixedIndexs.Contains(randomNumber))
+                        {
+                            StartingFixedIndexs.Add(randomNumber);
+                        }
+                    }
+                    else if (!StartingFixedIndexs.Contains(randomNumber))
+                    {
+                        StartingFixedIndexs.Add(randomNumber);
+                    }
+                }
             }
         }
         void ShuffleReelImgIndexList()
@@ -62,7 +123,7 @@ namespace SlotGame
             SetStartingFixedIndexsRandom();//this we need to be in our control, we need to handle this, for now this also random
 
             ReelImgIndexList.Clear();
-            for (int i = 0; i < TotalReelItems; i++)
+            for (int i = 0; i < GameManager.Instance.TotalReelItems; i++)
             {
                 ReelImgIndexList.Add(i);
             }
@@ -85,35 +146,40 @@ namespace SlotGame
                 ReelImgIndexList[i] = value;
             }
         }
+        void ShuffleReelImgIndexList_WinLogic()
+        {
+            //SetStartingFixedIndexsRandom();//this we need to be in our control, we need to handle this, for now this also random
+
+            ReelImgIndexList.Clear();
+
+            while (ReelImgIndexList.Count < 10)
+            {
+                int randomNumber = UnityEngine.Random.Range(0, 10);
+                if (!ReelImgIndexList.Contains(randomNumber))
+                {
+                    ReelImgIndexList.Add(randomNumber);
+                }
+            }
+            //swapping of required item 
+            int IndexOfRequiredWinItemIndex = ReelImgIndexList.IndexOf(GameManager.Instance.WinItemIndex);
+            int IndexOfLineOfThisReel = ReelItemsList.IndexOf(GameManager.Instance.lineInfos[GameManager.Instance.WinLineIndex].ReelItemsList[ReelIndex]);
+            int valueOfReqWinItemIndex = ReelImgIndexList[IndexOfRequiredWinItemIndex];
+            int valueOfLineOfReelItem = ReelImgIndexList[IndexOfLineOfThisReel];
+            ReelImgIndexList[IndexOfRequiredWinItemIndex] = valueOfLineOfReelItem;
+            ReelImgIndexList[IndexOfLineOfThisReel] = valueOfReqWinItemIndex;
+
+          
+        }
         void SetItemImgs()
         {
-            for (int i = 0; i < ReelItemsList.Length; i++)
+            for (int i = 0; i < ReelItemsList.Count; i++)
             {
                 ReelItemsList[i].ItemIndex = ReelImgIndexList[i];
                 ReelItemsList[i].SetItemImg();
             }
         }
 
-        private void OnStartClick()
-        {
-            ShuffleReelImgIndexList();
-            SetItemImgs();
-            // Need to change first 3 images after they move out of screen, becuase at this time this is in visible area,
-            // so if we change now then it will be like sudden change/jerk
-            StartGame();
-        }
-
-
-        public void StartGame()
-        {
-            speed = 10;
-            IsStartMachine = true;
-            StopAtFinalItem = false;
-            IsSetFinalSpeed = false;
-            //Invoke(nameof(StartSlotMachine), 1);
-            Invoke(nameof(SetFinalItem), TotalAnimTime);
-            Invoke(nameof(SlowSpeed), 3 * TotalAnimTime / 4);
-        }
+       
 
         //void StartSlotMachine()
         //{
@@ -125,89 +191,42 @@ namespace SlotGame
         }
         void SetFinalItem()
         {
+            Debug.LogError("------ SetfinalItem name="+gameObject.name);
             StopAtFinalItem = true;
+           // Time.timeScale = 0;
         }
+        bool IsSlowDownActivated = false;
         private void Update()
         {
             if (!IsStartMachine)
                 return;
-            //SlotPosY -= speed * Time.deltaTime;
-            //if (SlotPosY <= -200)
-            //    SlotPosY = 0;
 
-
-            //Debug.Log("-----localpositiony 0000=" + ItemHandlersList[0].transform.localPosition.y);
-            //Debug.Log("-----localpositiony 1111=" + ItemHandlersList[1].transform.localPosition.y);
-            //Debug.Log("-----localpositiony 2222=" + ItemHandlersList[2].transform.localPosition.y);
-            //Debug.Log("-----localpositiony 3333=" + ItemHandlersList[3].transform.localPosition.y);
-            //if(StopAtFinalItem && !IsSetFinalSpeed && ItemHandlersList[WinItemIndex].transform.localPosition.y>100 && ItemHandlersList[WinItemIndex].transform.localPosition.y<400)
-            //{
-            //    IsSetFinalSpeed = true;
-            //    speed = speed * 0.5f;
-            //}
-
-            for (int i = 0; i < ReelItemsList.Length; i++)
+            for (int i = 0; i < ReelItemsList.Count; i++)
             {
                 ReelItemsList[i].transform.localPosition -= new Vector3(0, speed, 0);
-
-                //if (obj.transform.localPosition.y <= -400f)
-                //{
-                //    //Debug.Log("-----localpositiony=" + ItemHandlersList[0].transform.localPosition.y + "   lasttopobjposy=" + LastTopObj.transform.localPosition.y);
-                //    obj.transform.localPosition = new Vector3(0, LastTopObj.transform.localPosition.y + 200, 0);
-                //    LastTopObj = obj.gameObject;
-                //}
             }
             foreach (ReelItem obj in ReelItemsList)
             {
                 // obj.transform.localPosition -= new Vector3(0, speed, 0);
-                if (obj.transform.localPosition.y <= (TotalReelItems - 2) * -200f)
+                if (obj.transform.localPosition.y <= (GameManager.Instance.TotalReelItems - 2) * -200f)//down last point
                 {
-                    //Debug.Log("-----localpositiony=" + ItemHandlersList[0].transform.localPosition.y + "   lasttopobjposy=" + LastTopObj.transform.localPosition.y);
                     obj.transform.localPosition = new Vector3(0, LastTopObj.transform.localPosition.y + 200, 0);
                     LastTopObj = obj.gameObject;
                 }
             }
-            if (StopAtFinalItem && ReelItemsList[WinItemIndex].transform.localPosition.y == 200)
+            if(StopAtFinalItem && !IsSlowDownActivated && ReelItemsList[WinItemIndex].transform.localPosition.y <= -1200)
+            {
+                IsSlowDownActivated = true;
+                SlowSpeed();
+            }
+            if (StopAtFinalItem && (ReelIndex==0 || (ReelIndex>0 && !GameManager.Instance.reelHandlersList[ReelIndex-1].IsStartMachine))&& 
+                ReelItemsList[WinItemIndex].transform.localPosition.y == 200)
             {
                 IsStartMachine = false;
                 GameManager.Instance.ReelFinishedAction();
                 //UIHandler.Instance.StartBtn.interactable = true;
             }
-            //return;
-            //ItemHandlersList[0].transform.localPosition -= new Vector3(0, speed, 0);
-
-            //ItemHandlersList[1].transform.localPosition -= new Vector3(0, speed , 0);
-
-
-
-            //ItemHandlersList[2].transform.localPosition -= new Vector3(0, speed , 0);
-
-
-
-            //ItemHandlersList[3].transform.localPosition -= new Vector3(0, speed , 0);
-
-
-            //if (ItemHandlersList[0].transform.localPosition.y <= -400f)
-            //{
-            //    Debug.Log("-----localpositiony=" + ItemHandlersList[0].transform.localPosition.y + "   lasttopobjposy=" + LastTopObj.transform.localPosition.y);
-            //    ItemHandlersList[0].transform.localPosition = new Vector3(0, LastTopObj.transform.localPosition.y + 200, 0);
-            //    LastTopObj = ItemHandlersList[0].gameObject;
-            //}
-            //if (ItemHandlersList[1].transform.localPosition.y <= -400f)
-            //{
-            //    ItemHandlersList[1].transform.localPosition = new Vector3(0, LastTopObj.transform.localPosition.y + 200, 0);
-            //    LastTopObj = ItemHandlersList[1].gameObject;
-            //}
-            //if (ItemHandlersList[2].transform.localPosition.y <= -400f)
-            //{
-            //    ItemHandlersList[2].transform.localPosition = new Vector3(0, LastTopObj.transform.localPosition.y + 200, 0);
-            //    LastTopObj = ItemHandlersList[2].gameObject;
-            //}
-            //if (ItemHandlersList[3].transform.localPosition.y <= -400f)
-            //{
-            //    ItemHandlersList[3].transform.localPosition = new Vector3(0, LastTopObj.transform.localPosition.y + 200, 0);
-            //    LastTopObj = ItemHandlersList[3].gameObject;
-            //}
+            
         }
     }
 }
