@@ -15,6 +15,7 @@ namespace SlotGame
         public void ActivateEffect(bool status)
         {
             effectObj.SetActive(status);
+            effectObj.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
         }
     }
 }
