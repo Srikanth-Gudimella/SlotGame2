@@ -5,6 +5,8 @@ namespace SlotGame
 {
     public class GameConstants:MonoBehaviour
     {
+        public int[] scoreValuesBasedOnItem;
+
         public float TotalAnimTime;
         public int TotalReelItems;
 

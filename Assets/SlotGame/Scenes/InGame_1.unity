@@ -1900,6 +1900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3e639683c3d584fb836ac04092912d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreValuesBasedOnItem: 05000000050000000500000006000000060000000800000008000000080000000a0000000a0000000c0000000c0000000e0000000f0000000f000000
   TotalAnimTime: 2
   TotalReelItems: 15
   reelInfos:
@@ -3231,6 +3232,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 342381778131477727, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192365206859992966, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1795381570338418042, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
       propertyPath: m_Name
       value: ReelSet_1
@@ -3332,6 +3341,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5152810556316230985, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930892557079874502, guid: b8d34dccd85d23e44a438ddfbec5f9cb, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

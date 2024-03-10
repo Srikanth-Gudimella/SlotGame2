@@ -66,6 +66,12 @@ namespace SlotGame
                 Debug.LogError("--- WinItemIndex=" + WinItemIndex);
                 Debug.LogError("--- WinItemsCount=" + WinItemsCount);
             }
+
+            foreach (LineInfo lineInfo in lineInfos)
+            {
+                for (int i = 0; i < lineInfo.ReelItemsList.Length; i++)
+                    lineInfo.ReelItemsList[i].ActivateEffect(false, 0);
+            }
         }
 
         public void FindWinningLines()
@@ -102,13 +108,18 @@ namespace SlotGame
             {
                 for (int j = 0; j < WinningLinesList[i].MatchCount; j++)
                 {
-                    WinningLinesList[i].ReelItemsList[j].ActivateEffect(true);
-                    if (WinningLinesList[i].ReelItemsList[j].ItemIndex < 5)
-                        ScoreCtrl.Instance.AddORDeductCash(10);
-                    else if(WinningLinesList[i].ReelItemsList[j].ItemIndex < 10)
-                        ScoreCtrl.Instance.AddORDeductCash(15);
-                    else
-                        ScoreCtrl.Instance.AddORDeductCash(20);
+                    ScoreCtrl.Instance.AddORDeductCash(scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex]);
+                    int scoreOnItem = scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex];
+                    WinningLinesList[i].ReelItemsList[j].ActivateEffect(true, scoreOnItem);
+                    //WinningLinesList[i].ReelItemsList[j].Text_Score.text = ""+scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex];
+                    Debug.Log("---- Each Item Score : " + scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex]);
+                    
+                    //if (WinningLinesList[i].ReelItemsList[j].ItemIndex < 5)
+                    //    ScoreCtrl.Instance.AddORDeductCash(10);
+                    //else if(WinningLinesList[i].ReelItemsList[j].ItemIndex < 10)
+                    //    ScoreCtrl.Instance.AddORDeductCash(15);
+                    //else
+                    //    ScoreCtrl.Instance.AddORDeductCash(20);
                 }
             }
         }
@@ -127,11 +138,7 @@ namespace SlotGame
         {
             ReelsFinishedCount = 0;
             UIHandler.Instance.StartBtn.interactable = true;
-            foreach (LineInfo lineInfo in lineInfos)
-            {
-                for (int i = 0; i < lineInfo.ReelItemsList.Length; i++)
-                    lineInfo.ReelItemsList[i].ActivateEffect(false);
-            }
+            
         }
     }
 }
