@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using SlotGame;
 public class RandomTest : MonoBehaviour
 {
     private void OnEnable()

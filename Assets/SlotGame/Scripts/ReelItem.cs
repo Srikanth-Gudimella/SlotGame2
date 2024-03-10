@@ -8,6 +8,7 @@ namespace SlotGame
         public int ItemIndex;
         public Image ItemImg;
         public GameObject effectObj;
+
         public void SetItemImg()
         {
             ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemIndex];

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 namespace SlotGame
 {
     public class GameManager : GameConstants
@@ -14,6 +14,7 @@ namespace SlotGame
         public bool useFixedStartIndexs;
         public int WinLineIndex,WinItemIndex,WinItemsCount;
         private float[] probabilities = { 0.8f, 0.2f, 0.1f }; // You can adjust these values as needed
+
 
         private void Awake()
         {
@@ -35,41 +36,26 @@ namespace SlotGame
         {
             if (IsActivateWinCondition)
             {
-                WinLineIndex = Random.Range(0, lineInfos.Count);
-                WinItemIndex = Random.Range(0, 10);
-                //int RandWinItemsCount = Random.Range(0, 10);
-                //Debug.LogError("--- RandWinItemsCount=" + RandWinItemsCount);
-                //if (RandWinItemsCount < 6)
-                //    WinItemsCount = 3;
-                //else if (RandWinItemsCount < 9)
-                //    WinItemsCount = 4;
-                //else
-                //    WinItemsCount = 5;
-
+                WinLineIndex = UnityEngine.Random.Range(0, lineInfos.Count);
+                WinItemIndex = UnityEngine.Random.Range(0, 10);
 
                 float randomValue = UnityEngine.Random.value;
 
                 // Check which probability range the random number falls into
                 if (randomValue <= probabilities[0])
                 {
-                    // 70% probability logic
                     Debug.Log("70% probability logic executed");
                     WinItemsCount = 3;
-                    // Implement your logic here for 70% probability
                 }
                 else if (randomValue <= probabilities[0] + probabilities[1])
                 {
-                    // 30% probability logic
                     Debug.Log("30% probability logic executed");
                     WinItemsCount = 4;
-                    // Implement your logic here for 30% probability
                 }
                 else if (randomValue <= probabilities[0] + probabilities[1] + probabilities[2])
                 {
-                    // 10% probability logic
                     Debug.Log("10% probability logic executed");
                     WinItemsCount = 5;
-                    // Implement your logic here for 10% probability
                 }
                 else
                 {
@@ -81,7 +67,8 @@ namespace SlotGame
                 Debug.LogError("--- WinItemsCount=" + WinItemsCount);
             }
         }
-            public void FindWinningLines()
+
+        public void FindWinningLines()
         {
             Debug.Log("------- FindWinningLines");
             WinningLinesList.Clear();
@@ -94,8 +81,6 @@ namespace SlotGame
                     if (lineInfo.FirstReelItemIndex == lineInfo.ReelItemsList[i].ItemIndex)
                     {
                         lineInfo.MatchCount++;
-                        //lineInfo.ReelItemsList[0].ActivateEffect(true);
-                        //lineInfo.ReelItemsList[i].ActivateEffect(true);
                     }
                     else
                     {
@@ -105,10 +90,10 @@ namespace SlotGame
                 if (lineInfo.MatchCount >= 3)
                 {
                     WinningLinesList.Add(lineInfo);
-                    Debug.Log("WinLine Matchcount="+lineInfo.MatchCount);
+                    Debug.Log("WinLine Matchcount = "+lineInfo.MatchCount);
                 }
             }
-            Debug.Log("--------- Find Winnings total winninglinescount=" + WinningLinesList.Count);
+            Debug.Log("---- Find Winnings total winninglinescount=" + WinningLinesList.Count);
             ShowWinLineEffect();
         }
         public void ShowWinLineEffect()
@@ -118,14 +103,16 @@ namespace SlotGame
                 for (int j = 0; j < WinningLinesList[i].MatchCount; j++)
                 {
                     WinningLinesList[i].ReelItemsList[j].ActivateEffect(true);
+                    if (WinningLinesList[i].ReelItemsList[j].ItemIndex < 5)
+                        ScoreCtrl.Instance.AddORDeductCash(10);
+                    else if(WinningLinesList[i].ReelItemsList[j].ItemIndex < 10)
+                        ScoreCtrl.Instance.AddORDeductCash(15);
+                    else
+                        ScoreCtrl.Instance.AddORDeductCash(20);
                 }
-                //WinningLinesList[i].ReelItemsList[1].ActivateEffect(true);
-                //WinningLinesList[i].ReelItemsList[2].ActivateEffect(true);
-                //lineInfos[lineInfos.IndexOf(WinningLinesList[i])].ReelItemsList[0].ActivateEffect(true);
-                //lineInfos[lineInfos.IndexOf(WinningLinesList[i])].ReelItemsList[1].ActivateEffect(true);
-                //lineInfos[lineInfos.IndexOf(WinningLinesList[i])].ReelItemsList[2].ActivateEffect(true);
             }
         }
+
         public void ReelFinishedAction()
         {
             ReelsFinishedCount++;

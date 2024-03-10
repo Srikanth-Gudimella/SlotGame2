@@ -4,18 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIHandler : MonoBehaviour
+namespace SlotGame
 {
-    public static UIHandler Instance;
-    public static Action StartAction;
-    public Button StartBtn;
-    private void Awake()
+    public class UIHandler : MonoBehaviour
     {
-        Instance = this;
-    }
-    public void StartClick()
-    {
-        StartBtn.interactable = false;
-        StartAction?.Invoke();
+        public static UIHandler Instance;
+        public static Action StartAction;
+        public Button StartBtn;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+        public void StartClick()
+        {
+            StartBtn.interactable = false;
+            StartAction?.Invoke();
+            Debug.Log("---- Bet = " + ScoreCtrl.Instance.BetAmount);
+            ScoreCtrl.Instance.AddORDeductCash(ScoreCtrl.Instance.BetAmount*100, false);
+        }
+        public void Btn_Add(bool canIncrease)
+        {
+            ScoreCtrl.Instance.UpdateBetAmount(0.1f,canIncrease);
+        }
     }
 }

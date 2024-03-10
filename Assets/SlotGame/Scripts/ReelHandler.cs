@@ -152,9 +152,9 @@ namespace SlotGame
 
             ReelImgIndexList.Clear();
 
-            while (ReelImgIndexList.Count < 10)
+            while (ReelImgIndexList.Count < 15)
             {
-                int randomNumber = UnityEngine.Random.Range(0, 10);
+                int randomNumber = UnityEngine.Random.Range(0, 15);
                 if (!ReelImgIndexList.Contains(randomNumber))
                 {
                     ReelImgIndexList.Add(randomNumber);
@@ -217,7 +217,7 @@ namespace SlotGame
                     LastTopObj = obj.gameObject;
                 }
             }
-            if(StopAtFinalItem && !IsSlowDownActivated && ReelItemsList[WinItemIndex].transform.localPosition.y <= -1200)
+            if(StopAtFinalItem && !IsSlowDownActivated && ReelItemsList[WinItemIndex].transform.localPosition.y <= -1600)
             {
                 IsSlowDownActivated = true;
                 SlowSpeed();
