@@ -9,11 +9,18 @@ namespace SlotGame
         public TextMeshProUGUI Text_Score;
         public Image ItemImg;
         public GameObject effectObj;
-
+        public GameObject medusa, zeus;
         public void SetItemImg()
         {
+            medusa.SetActive(false);zeus.SetActive(false);
+            ItemImg.enabled = true;
             ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemIndex];
+            if (ItemIndex == 2)
+            { medusa.SetActive(true); ItemImg.enabled = false; };
+            if (ItemIndex == 1)
+            { zeus.SetActive(true); ItemImg.enabled = false; };
         }
+
         public void ActivateEffect(bool status,int scoreToDisplay)
         {
             effectObj.SetActive(status);
