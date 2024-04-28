@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: Zeus_Atlas
+  m_EditorClassIdentifier: 
+  textureLoadingMode: 0
+  onDemandTextureLoader: {fileID: 0}
+  atlasFile: {fileID: 4900000, guid: 833ca802954fc774e9876261cae4782c, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 3b11c3537e30d68479faf417ccc1b246, type: 2}
+  - {fileID: 2100000, guid: 0fa9b663d02ed144a84c024cf537ed2a, type: 2}
+  - {fileID: 2100000, guid: e10241c55b9a3e1458184d4e38c43c94, type: 2}
+  - {fileID: 2100000, guid: 6497b79749c870641bcd3ff4458c4fc1, type: 2}
+  - {fileID: 2100000, guid: 318c39e4d7fca654897a35393f3ae7dc, type: 2}
+  - {fileID: 2100000, guid: 3cec39159269ffe4a9622f90eb70c5c3, type: 2}
+  - {fileID: 2100000, guid: 9a0af2eabc9400d43b75d9d38c6b3f95, type: 2}
+  - {fileID: 2100000, guid: 1195f7f8604cb0c4486cdd277a65e8fb, type: 2}

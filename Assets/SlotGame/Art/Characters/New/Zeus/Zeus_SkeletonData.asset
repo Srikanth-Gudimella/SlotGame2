@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
+  m_Name: Zeus_SkeletonData
+  m_EditorClassIdentifier: 
+  atlasAssets:
+  - {fileID: 11400000, guid: 29bf7e416b51b4f42b1f9fda38d4b531, type: 2}
+  scale: 0.01
+  skeletonJSON: {fileID: 4900000, guid: 3f0340e63e5722645916b431941eabd2, type: 3}
+  isUpgradingBlendModeMaterials: 0
+  blendModeMaterials:
+    requiresBlendModeMaterials: 1
+    applyAdditiveMaterial: 1
+    additiveMaterials:
+    - pageName: Zeus.png
+      material: {fileID: 2100000, guid: ce69c808a8e40d74c84f84073b1c8467, type: 2}
+    - pageName: Zeus_6.png
+      material: {fileID: 2100000, guid: c66713597e724d948b18df63a0be36e7, type: 2}
+    - pageName: Zeus_5.png
+      material: {fileID: 2100000, guid: 76209ba95a74d9a4ca11db0c3a3a2dec, type: 2}
+    - pageName: Zeus_3.png
+      material: {fileID: 2100000, guid: 3af6a97e2791c2243a0f5ed3819c660a, type: 2}
+    - pageName: Zeus_4.png
+      material: {fileID: 2100000, guid: 5dfd80915a94f3945b180c45c6315f03, type: 2}
+    - pageName: Zeus_2.png
+      material: {fileID: 2100000, guid: 8e09414ba1fcb774bac973d1fe474b5b, type: 2}
+    - pageName: Zeus_7.png
+      material: {fileID: 2100000, guid: e509a82bc63fbe941b1fbd2835d2314f, type: 2}
+    multiplyMaterials: []
+    screenMaterials: []
+  skeletonDataModifiers: []
+  fromAnimation: []
+  toAnimation: []
+  duration: []
+  defaultMix: 0.2
+  controller: {fileID: 0}
