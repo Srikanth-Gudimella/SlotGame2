@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
+  m_Name: Zeus_SkeletonData
+  m_EditorClassIdentifier: 
+  atlasAssets:
+  - {fileID: 11400000, guid: 5b1c0fbd7f424034db5af213b25a73e5, type: 2}
+  scale: 0.01
+  skeletonJSON: {fileID: 4900000, guid: dc736012d1015294c9d462e17761abb4, type: 3}
+  isUpgradingBlendModeMaterials: 0
+  blendModeMaterials:
+    requiresBlendModeMaterials: 1
+    applyAdditiveMaterial: 1
+    additiveMaterials:
+    - pageName: Zeus_2.png
+      material: {fileID: 2100000, guid: 801fd92e602dac543972e0aad9c698b7, type: 2}
+    - pageName: Zeus_4.png
+      material: {fileID: 2100000, guid: 38d784657acd09a419297e4e9f4a892e, type: 2}
+    - pageName: Zeus.png
+      material: {fileID: 2100000, guid: 50186684845a2344680aade4b0926bf8, type: 2}
+    - pageName: Zeus_6.png
+      material: {fileID: 2100000, guid: 9e41147eb2e8fd34fb93f2ba8ce9f9da, type: 2}
+    - pageName: Zeus_3.png
+      material: {fileID: 2100000, guid: 7db3609615ea7ca4c9306ed2f2ce4595, type: 2}
+    - pageName: Zeus_5.png
+      material: {fileID: 2100000, guid: 48a85188fa6748d49a9e1a7a1acc13b4, type: 2}
+    - pageName: Zeus_9.png
+      material: {fileID: 2100000, guid: c75bb74c7343dd248ab8138dc2d40572, type: 2}
+    - pageName: Zeus_10.png
+      material: {fileID: 2100000, guid: bbb17a1ec166acb4a8e94244c0ad0f5f, type: 2}
+    - pageName: Zeus_7.png
+      material: {fileID: 2100000, guid: 75aa2336e1fddda458d00757c1325cd3, type: 2}
+    - pageName: Zeus_8.png
+      material: {fileID: 2100000, guid: 83e7ecd4f9bb00f48a6277144bc9954a, type: 2}
+    multiplyMaterials: []
+    screenMaterials: []
+  skeletonDataModifiers: []
+  fromAnimation: []
+  toAnimation: []
+  duration: []
+  defaultMix: 0.2
+  controller: {fileID: 0}

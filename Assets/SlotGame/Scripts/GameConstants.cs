@@ -30,7 +30,11 @@ namespace SlotGame
         public List<LineInfo> WinningLinesList = new List<LineInfo>();
 
         public List<ReelHandler> reelHandlersList;
+    }
 
+    public class Constants
+    {
+        public const int SLOT_SPEED = 40;
     }
 }
 

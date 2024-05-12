@@ -10,15 +10,12 @@ namespace SlotGame
         public Image ItemImg;
         public GameObject effectObj;
         public GameObject medusa, zeus;
+        
         public void SetItemImg()
         {
             medusa.SetActive(false);zeus.SetActive(false);
             ItemImg.enabled = true;
             ItemImg.sprite = GameManager.Instance.ReelItemImgs[ItemIndex];
-            if (ItemIndex == 2)
-            { medusa.SetActive(true); ItemImg.enabled = false; };
-            if (ItemIndex == 1)
-            { zeus.SetActive(true); ItemImg.enabled = false; };
         }
 
         public void ActivateEffect(bool status,int scoreToDisplay)
@@ -28,6 +25,21 @@ namespace SlotGame
             iTween.ScaleTo(Text_Score.gameObject, iTween.Hash("x",1.2f,"y",1.2f,"z",1.2f,"delay",0.2f, 
                 "time", 1f, "easetype", iTween.EaseType.easeOutBounce));
             Text_Score.text = scoreToDisplay > 0 ? scoreToDisplay.ToString() : string.Empty;
+            if(status)
+            {
+                //GameManager.Instance.medusaChar.PlayCharAnim(1);// Test
+
+                if (ItemIndex == 2)
+                {
+                    medusa.SetActive(true); ItemImg.enabled = false;
+                    GameManager.Instance.medusaChar.PlayCharAnim(1);
+                }
+                if (ItemIndex == 1)
+                {
+                    zeus.SetActive(true); ItemImg.enabled = false;
+                    GameManager.Instance.zeusChar.PlayCharAnim(1);
+                }
+            }
         }
     }
 }

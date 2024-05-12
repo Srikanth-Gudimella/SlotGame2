@@ -1,14 +1,13 @@
 using Custom.Utils;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace SlotGame
 {
     public class ReelHandler : MonoBehaviour
     {
         public int ReelIndex = 0;
-        public float speed = 1;
+        float speed = 1;
         public GameObject LastTopObj;
         public bool IsStartMachine = false;
         public List<ReelItem> ReelItemsList = new List<ReelItem>();
@@ -68,7 +67,7 @@ namespace SlotGame
 
         public void StartGame()
         {
-            speed = 10;
+            speed = Constants.SLOT_SPEED;
             IsStartMachine = true;
             StopAtFinalItem = false;
             IsSetFinalSpeed = false;
@@ -102,7 +101,7 @@ namespace SlotGame
             {
                 while (StartingFixedIndexs.Count < 3)
                 {
-                    int randomNumber = UnityEngine.Random.Range(0, 10);
+                    int randomNumber = Random.Range(0, 10);
                     if (GameManager.Instance.IsActivateLossCondition && ReelIndex == 1)
                     {
                         Debug.Log("------------- Reelhandler SetStartingFixedIndexsRandom Reelindex=" + ReelIndex + "::count=" + (GameManager.Instance.reelHandlersList[0].StartingFixedIndexs));
@@ -140,7 +139,7 @@ namespace SlotGame
 
             for (int i = 3; i < ReelImgIndexList.Count - 1; i++)
             {
-                int k = UnityEngine.Random.Range(i + 1, ReelImgIndexList.Count);
+                int k = Random.Range(i + 1, ReelImgIndexList.Count);
                 int value = ReelImgIndexList[k];
                 ReelImgIndexList[k] = ReelImgIndexList[i];
                 ReelImgIndexList[i] = value;
@@ -154,7 +153,7 @@ namespace SlotGame
 
             while (ReelImgIndexList.Count < 15)
             {
-                int randomNumber = UnityEngine.Random.Range(0, 15);
+                int randomNumber = Random.Range(0, 15);
                 if (!ReelImgIndexList.Contains(randomNumber))
                 {
                     ReelImgIndexList.Add(randomNumber);
@@ -170,8 +169,6 @@ namespace SlotGame
                 ReelImgIndexList[IndexOfRequiredWinItemIndex] = valueOfLineOfReelItem;
                 ReelImgIndexList[IndexOfLineOfThisReel] = valueOfReqWinItemIndex;
             }
-
-          
         }
         void SetItemImgs()
         {
@@ -182,15 +179,9 @@ namespace SlotGame
             }
         }
 
-       
-
-        //void StartSlotMachine()
-        //{
-        //    IsStartMachine = true;
-        //}
         void SlowSpeed()
         {
-            speed = speed * 0.5f;
+            speed *= 0.5f;
         }
         void SetFinalItem()
         {

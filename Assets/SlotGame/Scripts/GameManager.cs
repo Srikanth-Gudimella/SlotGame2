@@ -1,5 +1,6 @@
 using UnityEngine;
-using System;
+using Custom.Utils;
+
 namespace SlotGame
 {
     public class GameManager : GameConstants
@@ -14,15 +15,15 @@ namespace SlotGame
         public bool useFixedStartIndexs;
         public int WinLineIndex,WinItemIndex,WinItemsCount;
         private float[] probabilities = { 0.8f, 0.2f, 0.1f }; // You can adjust these values as needed
-
-
+        
+        public SpinAnimCtrl medusaChar,zeusChar,jackPot;
         private void Awake()
         {
             Instance = this;
             //IsActivateLossCondition = true;
-            #if !UNITY_EDITOR
+#if !UNITY_EDITOR
             useFixedStartIndexs=false;
-            #endif
+#endif
         }
         private void OnEnable()
         {
@@ -36,10 +37,10 @@ namespace SlotGame
         {
             if (IsActivateWinCondition)
             {
-                WinLineIndex = UnityEngine.Random.Range(0, lineInfos.Count);
-                WinItemIndex = UnityEngine.Random.Range(0, 10);
+                WinLineIndex = Random.Range(0, lineInfos.Count);
+                WinItemIndex = Random.Range(0, 10);
 
-                float randomValue = UnityEngine.Random.value;
+                float randomValue = Random.value;
 
                 // Check which probability range the random number falls into
                 if (randomValue <= probabilities[0])
@@ -72,6 +73,24 @@ namespace SlotGame
                 for (int i = 0; i < lineInfo.ReelItemsList.Length; i++)
                     lineInfo.ReelItemsList[i].ActivateEffect(false, 0);
             }
+            medusaChar.PlayCharAnim(0);
+            zeusChar.PlayCharAnim(0);
+        }
+
+        const int NUM_OF_REELS = 5;
+        public void ReelFinishedAction()
+        {
+            ReelsFinishedCount++;
+            if (ReelsFinishedCount == NUM_OF_REELS)
+            {
+                // All Reels rotation finished and stopeed
+                FindWinningLines();
+                CoroutineUtils.instance.WaitUntillGivenTime(2, () =>
+                {
+                    ReelsFinishedCount = 0;
+                    UIHandler.Instance.StartBtn.interactable = true;
+                });
+            }
         }
 
         public void FindWinningLines()
@@ -102,43 +121,19 @@ namespace SlotGame
             Debug.Log("---- Find Winnings total winninglinescount=" + WinningLinesList.Count);
             ShowWinLineEffect();
         }
+
         public void ShowWinLineEffect()
         {
-            for(int i=0;i<WinningLinesList.Count;i++)
+            for(int i = 0; i < WinningLinesList.Count; i++)
             {
                 for (int j = 0; j < WinningLinesList[i].MatchCount; j++)
                 {
                     ScoreCtrl.Instance.AddORDeductCash(scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex]);
                     int scoreOnItem = scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex];
                     WinningLinesList[i].ReelItemsList[j].ActivateEffect(true, scoreOnItem);
-                    //WinningLinesList[i].ReelItemsList[j].Text_Score.text = ""+scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex];
                     Debug.Log("---- Each Item Score : " + scoreValuesBasedOnItem[WinningLinesList[i].ReelItemsList[j].ItemIndex]);
-                    
-                    //if (WinningLinesList[i].ReelItemsList[j].ItemIndex < 5)
-                    //    ScoreCtrl.Instance.AddORDeductCash(10);
-                    //else if(WinningLinesList[i].ReelItemsList[j].ItemIndex < 10)
-                    //    ScoreCtrl.Instance.AddORDeductCash(15);
-                    //else
-                    //    ScoreCtrl.Instance.AddORDeductCash(20);
                 }
             }
-        }
-
-        public void ReelFinishedAction()
-        {
-            ReelsFinishedCount++;
-            if (ReelsFinishedCount == 5)
-            {
-                // All Reels rotation finished and stopeed
-                FindWinningLines();
-                Invoke(nameof(SetReady), 2);
-            }
-        }
-        public void SetReady()
-        {
-            ReelsFinishedCount = 0;
-            UIHandler.Instance.StartBtn.interactable = true;
-            
         }
     }
 }
