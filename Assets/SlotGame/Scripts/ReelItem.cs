@@ -27,7 +27,7 @@ namespace SlotGame
             Text_Score.text = scoreToDisplay > 0 ? scoreToDisplay.ToString() : string.Empty;
             if(status)
             {
-                //GameManager.Instance.medusaChar.PlayCharAnim(1);// Test
+                //GameManager.Instance.zeusChar.PlayCharAnim(1);// Test
 
                 if (ItemIndex == 2)
                 {

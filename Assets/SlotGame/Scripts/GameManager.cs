@@ -14,7 +14,7 @@ namespace SlotGame
 
         public bool useFixedStartIndexs;
         public int WinLineIndex,WinItemIndex,WinItemsCount;
-        private float[] probabilities = { 0.8f, 0.2f, 0.1f }; // You can adjust these values as needed
+        private readonly float[] probabilities = { 0.8f, 0.2f, 0.1f }; // You can adjust these values as needed
         
         public SpinAnimCtrl medusaChar,zeusChar,jackPot;
         private void Awake()
@@ -45,17 +45,17 @@ namespace SlotGame
                 // Check which probability range the random number falls into
                 if (randomValue <= probabilities[0])
                 {
-                    Debug.Log("70% probability logic executed");
+                    Debug.Log("---- prob 80% logic executed");
                     WinItemsCount = 3;
                 }
                 else if (randomValue <= probabilities[0] + probabilities[1])
                 {
-                    Debug.Log("30% probability logic executed");
+                    Debug.Log("---- prob 20% logic executed");
                     WinItemsCount = 4;
                 }
                 else if (randomValue <= probabilities[0] + probabilities[1] + probabilities[2])
                 {
-                    Debug.Log("10% probability logic executed");
+                    Debug.Log("---- prob 10% logic executed");
                     WinItemsCount = 5;
                 }
                 else
